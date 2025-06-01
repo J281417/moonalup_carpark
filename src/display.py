@@ -15,3 +15,7 @@ class Display:
         return f'Display \
             {self.id}: \
             {self.message}'
+    
+    def update(self, data):
+        for key, value in data.items():
+            print(f"{key}: {value}")
