@@ -2,3 +2,4 @@
 .venv/
 carpark_guide.md
 images/
+__pycache__

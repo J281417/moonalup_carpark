@@ -1,5 +1,5 @@
-from display import Display
-from sensor import Sensor
+from .display import Display
+from .sensor import Sensor
 
 class CarPark:
     def __init__(
@@ -13,8 +13,8 @@ class CarPark:
         self.location = location
         self.sensors = sensors or []
         self.capacity = capacity
-        self.plates = plates
-        self.displays = displays
+        self.plates = plates or []
+        self.displays =  displays or []
 
     def __str__(self):
         return f'Car park at  \
@@ -44,7 +44,8 @@ class CarPark:
             self,
             plate
     ):
-        self.plates.pop(plate)
+
+        self.plates.remove(plate)
         self.update_displays()
 
     def update_displays(self):
