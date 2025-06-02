@@ -2,12 +2,12 @@ class Display:
     def __init__(
         self,
         id,
-        message = "",
+        message = "" ,
         is_on = False,
         car_park = None
     ):
         self.id = id
-        self.message = message
+        self.message = message or {"message": message}
         self.is_on = is_on
         self.car_park = car_park
 
@@ -17,5 +17,8 @@ class Display:
             {self.message}'
     
     def update(self, data):
+        if type(self.message) == str:
+            self.message = data
+        else: self.message.update(data)
         for key, value in data.items():
             print(f"{key}: {value}")
