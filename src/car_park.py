@@ -44,7 +44,6 @@ class CarPark:
             self,
             plate
     ):
-
         self.plates.remove(plate)
         self.update_displays()
 
