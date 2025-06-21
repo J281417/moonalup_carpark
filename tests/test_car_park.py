@@ -78,6 +78,18 @@ class TestCarPark(unittest.TestCase):
         self.assertIn("exited", last_line) # check description
         self.assertIn("\n", last_line) # check entry has a new line
 
+    def test_carpark_initialised_from_config(self):
+        self.car_park.location = "Config Test St"
+        self.car_park.write_config()
+        carpark_from_config_file = CarPark.from_config()
+        self.assertIsInstance(carpark_from_config_file, CarPark)
+        self.assertEqual(carpark_from_config_file.location, "Config Test St")
+        self.assertEqual(carpark_from_config_file.capacity, 100)
+        self.assertEqual(carpark_from_config_file.plates, [])
+        self.assertEqual(carpark_from_config_file.sensors, [])
+        self.assertEqual(carpark_from_config_file.displays, [])
+        self.assertEqual(carpark_from_config_file.available_bays, 100)
+        self.assertEqual(carpark_from_config_file.log_file, Path("log.txt"))
 
 if __name__ == "__main__":
     unittest.main()
