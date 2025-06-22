@@ -1,5 +1,5 @@
-from .display import Display
-from .sensor import Sensor
+from display import Display
+from sensor import Sensor
 import json
 
 from pathlib import Path
@@ -77,7 +77,7 @@ class CarPark:
             f.write(f"{plate} {action} at {datetime.now():%Y-%m-%d %H:%M:%S}\n")
 
     def write_config(self):
-        with open("config.json", "w") as f:
+        with open(self.config_file, "w") as f:
             json.dump({"location": self.location,
                         "capacity": self.capacity,
                         "log_file": str(self.log_file)}, f)
