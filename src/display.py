@@ -17,6 +17,9 @@ class Display:
             {self.message}'
     
     def update(self, data):
+        """
+        Outputs message data to displays.
+        """
         if type(self.message) == str:
             self.message = data
         else: self.message.update(data)

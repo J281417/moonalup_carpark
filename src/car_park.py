@@ -35,6 +35,10 @@ class CarPark:
             self,
             component = Sensor | Display
     ):
+        """
+        Registers carpark components (eg Sensors and Displays). Components
+         are set to on when they are registered to the carpark.
+        """
         if not isinstance(component, (Sensor, Display)):
             raise TypeError("Object must be a Sensor or Display")
 
@@ -47,6 +51,10 @@ class CarPark:
             self,
             plate
     ):
+        """
+        Adds car number plate to plates list and sends updated information
+        to Displays for output.  Logs number plate as entered in log file.
+        """
         self.plates.append(plate)
         self.update_displays()
         self._log_car_activity(plate, "entered")
@@ -55,11 +63,18 @@ class CarPark:
             self,
             plate
     ):
+        """
+        Removes car numberplate from list of plates in carpark and sends
+        update to displays. Logs number plate as exited in log file.
+        """
         self.plates.remove(plate)
         self.update_displays()
         self._log_car_activity(plate, "exited")
 
     def update_displays(self):
+        """
+        Sends updated information to carpark displays.
+        """
         for display in self.displays:
             display.update(
                 {
@@ -70,13 +85,22 @@ class CarPark:
 
     @property
     def available_bays(self):
+        """
+        Dynamically calculates available bays in carpark.
+        """
         return 0 if self.capacity - len(self.plates) < 0 else self.capacity - len(self.plates)
 
     def _log_car_activity(self, plate, action):
+        """
+        Writes car activity data to log file.
+        """
         with self.log_file.open("a") as f:
             f.write(f"{plate} {action} at {datetime.now():%Y-%m-%d %H:%M:%S}\n")
 
     def write_config(self):
+        """
+        Writes configuration data to configuration file.
+        """
         with open(self.config_file, "w") as f:
             json.dump({"location": self.location,
                         "capacity": self.capacity,

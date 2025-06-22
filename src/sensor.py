@@ -19,12 +19,22 @@ class Sensor(ABC):
     
     @abstractmethod
     def update_car_park(self, plate):
+        """
+        Updates CarPark plates list by appending or removing number plate id.
+        """
         pass
     
     def _scan_plate(self):
+        """
+        Simulates a number plate scanner to return a random plate id.
+        """
         return 'FAKE-' + format(random.randint(0, 999), "03d")
 
     def detect_vehicle(self):
+        """
+        When vehicle is detected by a sensor the number plate is scanned and
+        the CarPark is updated with the plate information.
+        """
         plate = self._scan_plate()
         self.update_car_park(plate)
 
@@ -35,6 +45,10 @@ class EntrySensor(Sensor):
 
 class ExitSensor(Sensor):
     def _scan_plate(self):
+        """
+        Simulates a plate scanner by returning a plate id that has been
+        previously scanned into the carpark.
+        """
         return random.choice(self.car_park.plates)
     
     def update_car_park(self, plate):
